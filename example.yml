@@ -1,0 +1,38 @@
+config:
+    target: "https://api.genholic.com"
+    phases:
+        - duration: 10
+          arrivalRate: 20
+    tls:
+        rejectUnauthorized: false
+    http:
+        timeout: 120      
+    environments:
+        production:
+            target: "https://api.genholic.com"
+            phases:
+                - duration: 10
+                  arrivalRate: 10
+        staging:
+            target: "https://api.genholic.com"
+            phases:
+                - duration: 60
+                  arrivalRate: 1000
+                  name: "Phases 1"
+                - pause: 5
+                - duration: 60
+                  arrivalRate: 1000
+                  name: "Phases 2"
+
+scenarios:
+    - flow:
+        - log: "Current environment is set to: {{ $environment }}"
+        - get:
+            url: "/api/products"
+            followRedirect: false
+        - post:
+            url: '/api/products'
+            json:
+                name: xxx
+            gzip: true
+          

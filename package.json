@@ -1,0 +1,11 @@
+{
+  "name": "artillery",
+  "dependencies": {
+    "artillery": "^1.6.0-29"
+  },
+  "scripts": {
+    "dev": "artillery run -e staging example.yml",
+    "prod": "artillery run -e production example.yml",
+    "convert": "artillery convert ./example.yml"
+  }
+}
